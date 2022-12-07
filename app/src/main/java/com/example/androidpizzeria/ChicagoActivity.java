@@ -16,7 +16,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.text.DecimalFormat;
 
 public class ChicagoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -36,6 +35,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
 
     private static final int MAX_TOPPINGS = 7;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
         myPizza.setSize(Size.valueOf("SMALL"));
         canAddToppings = false;
         canRemoveToppings = false;
+
+        toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
         priceTextView = findViewById(R.id.priceTextView);
         crustTextView = findViewById(R.id.crustTextView);
@@ -69,7 +71,6 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void buildToppingsRecyclers() {
-        Toast toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         allToppingsArrayList = new ArrayList<>();
         for (Toppings t : Toppings.values()) {
             allToppingsArrayList.add(new AllToppings(t.toString()));
@@ -84,7 +85,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onItemClick(int position) {
                 if (canAddToppings) addTopping(position);
-                else toastAddFail(toast);
+                else toastAddFail();
             }
         });
 
@@ -102,21 +103,23 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onItemClick(int position) {
                 if (canRemoveToppings) removeTopping(position);
-                else toastRemoveFail(toast);
+                else toastRemoveFail();
             }
         });
     }
 
-    public void toastAddFail(Toast toast) {
-        toast.setText("TOPPING COULD NOT BE ADDED");
+    public void toastAddFail() {
+        toast.cancel();
+        toast = Toast.makeText(this, "TOPPING COULD NOT BE ADDED", Toast.LENGTH_SHORT);
         toast.show();
         //Toast.makeText(this, "TOPPING COULD NOT BE ADDED", Toast.LENGTH_SHORT).show();
     }
     
-    public void toastRemoveFail(Toast toast) {
-        //Toast.makeText(this, "TOPPING COULD NOT BE REMOVED", Toast.LENGTH_SHORT).show();
-        toast.setText("TOPPING COULD NOT BE ADDED");
+    public void toastRemoveFail() {
+        toast.cancel();
+        toast = Toast.makeText(this, "TOPPING COULD NOT BE REMOVED", Toast.LENGTH_SHORT);
         toast.show();
+        //Toast.makeText(this, "TOPPING COULD NOT BE REMOVED", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -163,7 +166,10 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
     public boolean addTopping(int position) {
         try {
             AllToppings selectedRecycler = allToppingsArrayList.get(position);
-            Toast.makeText(this, selectedRecycler.getText() + " ADDED", Toast.LENGTH_SHORT).show();
+            toast.cancel();
+            toast = Toast.makeText(this, selectedRecycler.getText() + " ADDED", Toast.LENGTH_SHORT);
+            toast.show();
+            //Toast.makeText(this, selectedRecycler.getText() + " ADDED", Toast.LENGTH_SHORT).show();
             Toppings selectedTopping = (Toppings.valueOf(selectedRecycler.getText()));
             if (myPizza.add(selectedTopping)) {
                 addedToppingsArrayList.add(selectedRecycler);
@@ -183,7 +189,10 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
     public boolean removeTopping(int position) {
         try {
             AllToppings selectedRecycler = addedToppingsArrayList.get(position);
-            Toast.makeText(this, selectedRecycler.getText() + " REMOVED", Toast.LENGTH_SHORT).show();
+            toast.cancel();
+            toast = Toast.makeText(this, selectedRecycler.getText() + " REMOVED", Toast.LENGTH_SHORT);
+            toast.show();
+            //Toast.makeText(this, selectedRecycler.getText() + " REMOVED", Toast.LENGTH_SHORT).show();
             Toppings selectedTopping = (Toppings.valueOf(selectedRecycler.getText()));
             if (myPizza.remove(selectedTopping)) {
                 addedToppingsArrayList.remove(selectedRecycler);
