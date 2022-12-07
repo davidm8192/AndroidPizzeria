@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">AndroidPizzeria</string>
-    <string name="flavorLabel">PizzaFlavor</string>
+    <string name="flavorLabel">Pizza Flavor</string>
     <string-array name="flavors">
         <item>DELUXE</item>
         <item>MEATZZA</item>
         <item>BBQ CHICKEN</item>
         <item>BUILD YOUR OWN</item>
     </string-array>
-
+    <string name="smallRadioLabel">SMALL</string>
+    <string name="mediumRadioLabel">MEDIUM</string>
+    <string name="largeRadioLabel">LARGE</string>
+    <string name="crustTextView">CRUST: </string>
+    <string name="priceTextView">PIZZA PRICE: $0.00</string>
+    <string name="orderTextView">Order Number:</string>
+    <string name="addToOrderLabel">ADD TO ORDER</string>
+    <string name="subtotalTextView">Subtotal: $0.00</string>
+    <string name="taxTextView">Tax: $0.00</string>
+    <string name="totalTextView">Total: $0.00</string>
+    <string name="removeOrderLabel">Remove Order</string>
+    <string name="clearOrderLabel">Clear Order</string>
+    <string name="placeOrderLabel">Place Order</string>
 </resources>

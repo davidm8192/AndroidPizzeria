@@ -11,13 +11,34 @@ import java.util.ArrayList;
 
 public class AllToppingsAdapter extends RecyclerView.Adapter<AllToppingsAdapter.AllToppingsViewHolder> {
     private ArrayList<AllToppings> mAllToppingsList;
+    private OnItemClickListener mListener;
+    
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+    
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
     
     public static class AllToppingsViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
 
-        public AllToppingsViewHolder(View itemView) {
+        public AllToppingsViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.textView);
+            
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -28,7 +49,7 @@ public class AllToppingsAdapter extends RecyclerView.Adapter<AllToppingsAdapter.
     @Override
     public AllToppingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_toppings, parent, false);
-        AllToppingsViewHolder output = new AllToppingsViewHolder(v);
+        AllToppingsViewHolder output = new AllToppingsViewHolder(v, mListener);
         return output;
     }
 
