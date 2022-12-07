@@ -41,14 +41,14 @@ public class StoreOrder implements Customizable {
         for(Order o : myStoreOrder) {
             String order = "Order number: " + o.getOrderNumber() + "\n";
             for(Pizza p : o.getOrder()) {
-                order += CurrentOrderController.toString(p);
+                //order += CurrentOrderController.toString(p);
                 order += "\n";
             }
-            order = order + "Subtotal: $" + df.format(CurrentOrderController.subtotalPrice(o)) +
-                    ", Tax: $" + df.format(CurrentOrderController.taxPrice(o)) +
-                    "\nTotal price: $" + df.format(CurrentOrderController.totalPrice(o)) + "\n\n";
-            byte[] textBytes = order.getBytes();
-            output.write(textBytes);
+            //order = order + "Subtotal: $" + df.format(CurrentOrderController.subtotalPrice(o)) +
+                    //", Tax: $" + df.format(CurrentOrderController.taxPrice(o)) +
+                    //"\nTotal price: $" + df.format(CurrentOrderController.totalPrice(o)) + "\n\n";
+            //byte[] textBytes = order.getBytes();
+            //output.write(textBytes);
         }
     }
 

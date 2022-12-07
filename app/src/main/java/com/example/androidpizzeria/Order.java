@@ -11,7 +11,7 @@ public class Order implements Customizable {
 
     public Order() {
         myOrder = new ArrayList<>();
-        orderNumber = MainController.orderNumber();
+        //orderNumber = MainController.orderNumber();
     }
 
     public boolean add(Object obj) {

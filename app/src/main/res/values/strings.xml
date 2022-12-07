@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AndroidPizzeria</string>
+    <string name="flavorLabel">PizzaFlavor</string>
+    <string-array name="flavors">
+        <item>DELUXE</item>
+        <item>MEATZZA</item>
+        <item>BBQ CHICKEN</item>
+        <item>BUILD YOUR OWN</item>
+    </string-array>
+
 </resources>
