@@ -20,7 +20,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     private Order myOrder;
     private TextView orderTextView, subtotalTextView, taxTextView, totalTextView;
     private ListView orderListView;
-    private Button backButton;
+    private Button backButton, removeOrderButton, clearOrderButton, placeOrderButton;
     private Toast toast;
 
     private int itemPosition;
@@ -54,10 +54,6 @@ public class CurrentOrderActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 pizzaInfo = adapter.getItem(position);
                 itemPosition = position;
-                toast.cancel();
-                String toastString = "Selected: " + pizzaInfo;
-                toast = Toast.makeText(CurrentOrderActivity.this, toastString, Toast.LENGTH_SHORT);
-                toast.show();
             }
         });
 
@@ -65,6 +61,23 @@ public class CurrentOrderActivity extends AppCompatActivity {
         subtotalTextView = findViewById(R.id.subtotalTextView);
         taxTextView = findViewById(R.id.taxTextView);
         totalTextView = findViewById(R.id.totalTextView);
+
+        removeOrderButton = findViewById(R.id.removeOrderButton);
+        removeOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toast.cancel();
+                String toastString = pizzaInfo + " has been deleted";
+                toast = Toast.makeText(CurrentOrderActivity.this, toastString, Toast.LENGTH_SHORT);
+                toast.show();
+
+                pizzaList.remove(itemPosition);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        clearOrderButton = findViewById(R.id.clearOrderButton);
+        placeOrderButton = findViewById(R.id.placeOrderButton);
 
         backButton = findViewById(R.id.backButton3);
         backButton.setOnClickListener(new View.OnClickListener() {

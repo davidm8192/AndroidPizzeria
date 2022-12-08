@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
     private Button chicagoButton;
     private Button currentOrderButton;
 
-    private static ArrayList<Integer> orderNumberArrayList;
+    private static ArrayList<Integer> orderNumberArrayList = new ArrayList<Integer>();
     private static Order myOrder = new Order();
-    private static StoreOrder myStoreOrder;
+    private static StoreOrder myStoreOrder = new StoreOrder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        orderNumberArrayList = new ArrayList<>();
+        //orderNumberArrayList = new ArrayList<>();
         //myOrder = new Order();
-        myStoreOrder = new StoreOrder();
+        //myStoreOrder = new StoreOrder();
     }
 
     public void openChicago() {

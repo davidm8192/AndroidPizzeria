@@ -35,13 +35,13 @@ public class StoreOrder implements Customizable {
         return false;
     }
 
-    public void export() throws IOException {
+    /*public void export() throws IOException {
         FileOutputStream output = new FileOutputStream("storeOrders.txt");
 
         for(Order o : myStoreOrder) {
             String order = "Order number: " + o.getOrderNumber() + "\n";
             for(Pizza p : o.getOrder()) {
-                //order += CurrentOrderController.toString(p);
+                order += CurrentOrderController.toString(p);
                 order += "\n";
             }
             //order = order + "Subtotal: $" + df.format(CurrentOrderController.subtotalPrice(o)) +
@@ -50,7 +50,7 @@ public class StoreOrder implements Customizable {
             //byte[] textBytes = order.getBytes();
             //output.write(textBytes);
         }
-    }
+    }*/
 
     public ArrayList<Order> getStoreOrder() {
         return this.myStoreOrder;
