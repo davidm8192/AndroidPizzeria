@@ -27,7 +27,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/backButton3"
+                android:id="@+id/backButton4"
                 android:layout_width="128dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
@@ -38,8 +38,8 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/orderTextView"
-                android:layout_width="242dp"
+                android:id="@+id/storeOrderTextView"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical"
@@ -52,7 +52,7 @@
             android:layout_height="29dp" />
 
         <ListView
-            android:id="@+id/orderListView"
+            android:id="@+id/storeOrderListView"
             android:layout_width="match_parent"
             android:layout_height="307dp"
             android:layout_marginStart="20dp"
@@ -62,52 +62,14 @@
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/storeOrderTotalTextView"
             android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="54dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/subtotalTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center|center_vertical"
-                    android:text="@string/subtotalTextView"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/taxTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/taxTextView"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/totalTextView"
-                android:layout_width="72dp"
-                android:layout_height="102dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/totalTextView"
-                android:textSize="24sp" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/totalTextView"
+            android:textSize="24sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -119,8 +81,8 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
+                android:id="@+id/cancelOrderButton"
+                android:layout_width="169dp"
                 android:layout_height="128dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
@@ -133,28 +95,7 @@
             <LinearLayout
                 android:layout_width="141dp"
                 android:layout_height="129dp"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:backgroundTint="#F6C295"
-                    android:text="@string/removeOrderLabel"
-                    android:textColor="#63473E" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:backgroundTint="#F6C8A1"
-                    android:text="@string/clearOrderLabel"
-                    android:textColor="#63473E" />
-            </LinearLayout>
+                android:orientation="vertical"/>
 
         </LinearLayout>
 

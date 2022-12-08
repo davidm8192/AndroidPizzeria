@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private Button chicagoButton;
     private Button currentOrderButton;
 
+    private static ArrayList<Integer> orderNumberArrayList;
+    private static Order myOrder = new Order();
+    private static StoreOrder myStoreOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        chicagoButton = (Button) findViewById(R.id.chicagoButton);
+        chicagoButton = findViewById(R.id.chicagoButton);
         chicagoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,13 +30,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        currentOrderButton = (Button) findViewById(R.id.currentOrderButton);
+        currentOrderButton = findViewById(R.id.currentOrderButton);
         currentOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCurrentOrder();
             }
         });
+
+        orderNumberArrayList = new ArrayList<>();
+        //myOrder = new Order();
+        myStoreOrder = new StoreOrder();
     }
 
     public void openChicago() {
@@ -42,6 +51,37 @@ public class MainActivity extends AppCompatActivity {
     public void openCurrentOrder() {
         Intent intent = new Intent(MainActivity.this, CurrentOrderActivity.class);
         startActivity(intent);
+    }
+
+    public static Order getMyOrder() {
+        return myOrder;
+    }
+
+    public static StoreOrder getMyStoreOrder() {
+        return myStoreOrder;
+    }
+
+   public static ArrayList<Integer> getOrderNumArrayList() {
+       return orderNumberArrayList;
+   }
+
+    public static void addToOrder(Pizza pizza) {
+        myOrder.add(pizza);
+    }
+
+    public static int orderNumber() {
+        int i = 1;
+        while(orderNumberArrayList.contains(i)) i++;
+        orderNumberArrayList.add(i);
+        return i;
+    }
+
+    public static void resetMyOrder() {
+        myOrder = new Order();
+    }
+
+    public static void addToStoreOrder(Order order) {
+        myStoreOrder.add(order);
     }
 
 }

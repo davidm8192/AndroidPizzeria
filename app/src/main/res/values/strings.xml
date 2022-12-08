@@ -12,12 +12,18 @@
     <string name="largeRadioLabel">LARGE</string>
     <string name="crustTextView">CRUST: </string>
     <string name="priceTextView">PIZZA PRICE: $0.00</string>
-    <string name="orderTextView">Order Number:</string>
+    <string name="orderTextView">ORDER #:</string>
     <string name="addToOrderLabel">ADD TO ORDER</string>
-    <string name="subtotalTextView">Subtotal: $0.00</string>
-    <string name="taxTextView">Tax: $0.00</string>
-    <string name="totalTextView">Total: $0.00</string>
-    <string name="removeOrderLabel">Remove Order</string>
-    <string name="clearOrderLabel">Clear Order</string>
-    <string name="placeOrderLabel">Place Order</string>
+    <string name="backLabel">BACK</string>
+    <string name="subtotalTextView">SUBTOTAL: $0.00</string>
+    <string name="taxTextView">TAX: $0.00</string>
+    <string name="totalTextView">TOTAL: $0.00</string>
+    <string name="removeOrderLabel">REMOVE ORDER</string>
+    <string name="clearOrderLabel">CLEAR ORDER</string>
+    <string name="placeOrderLabel">PLACE ORDER</string>
+    <string name="RUPizzeria">RU PIZZERIA</string>
+    <string name="chicagoActivityButton">CHICAGO STYLE</string>
+    <string name="newYorkActivityButton">NEW YORK STYLE</string>
+    <string name="currentOrderActivityButton">CURRENT ORDER</string>
+    <string name="storeOrdersActivityButton">STORE ORDERS</string>
 </resources>

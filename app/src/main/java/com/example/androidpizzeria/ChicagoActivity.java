@@ -1,13 +1,17 @@
 package com.example.androidpizzeria;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,6 +30,8 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
     private TextView crustTextView, priceTextView;
     private RadioGroup sizeRadioGroup;
     private RadioButton sizeRadioButton;
+    private Button backButton, addToOrderButton;
+    private AlertDialog.Builder addToOrderAlert;
 
     private PizzaFactory pizzaFactory;
     private Pizza myPizza;
@@ -56,10 +62,29 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
         pizzaImage = findViewById(R.id.pizzaImage);
         buildFlavorSpinner();
         buildToppingsRecyclers();
+        buildButtons();
 
         updatePrice();
         updateCrust();
 
+    }
+
+    public void buildButtons() {
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMain();
+            }
+        });
+
+        addToOrderButton = findViewById(R.id.addToOrderButton);
+        addToOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToOrder();
+            }
+        });
     }
 
     public void buildFlavorSpinner() {
@@ -106,6 +131,41 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
                 else toastRemoveFail();
             }
         });
+    }
+
+    public void openMain() {
+        Intent intent = new Intent(ChicagoActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Adds the Pizza to the current order, alerts the user, and then closes the window.
+     */
+    public void addToOrder() {
+        addToOrderAlert = new AlertDialog.Builder(ChicagoActivity.this);
+
+        addToOrderAlert.setTitle("ADD ORDER")
+                .setMessage("Do you want to add the pizza to the order?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        toast.cancel();
+                        toast = Toast.makeText(ChicagoActivity.this, "Pizza added to order", Toast.LENGTH_SHORT);
+                        toast.show();
+                        MainActivity.addToOrder(myPizza);
+                        openMain();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        toast.cancel();
+                        toast = Toast.makeText(ChicagoActivity.this, "Pizza was not added", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                })
+                .show();
     }
 
     public void toastAddFail() {
@@ -169,7 +229,6 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
             toast.cancel();
             toast = Toast.makeText(this, selectedRecycler.getText() + " ADDED", Toast.LENGTH_SHORT);
             toast.show();
-            //Toast.makeText(this, selectedRecycler.getText() + " ADDED", Toast.LENGTH_SHORT).show();
             Toppings selectedTopping = (Toppings.valueOf(selectedRecycler.getText()));
             if (myPizza.add(selectedTopping)) {
                 addedToppingsArrayList.add(selectedRecycler);
@@ -192,7 +251,6 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
             toast.cancel();
             toast = Toast.makeText(this, selectedRecycler.getText() + " REMOVED", Toast.LENGTH_SHORT);
             toast.show();
-            //Toast.makeText(this, selectedRecycler.getText() + " REMOVED", Toast.LENGTH_SHORT).show();
             Toppings selectedTopping = (Toppings.valueOf(selectedRecycler.getText()));
             if (myPizza.remove(selectedTopping)) {
                 addedToppingsArrayList.remove(selectedRecycler);
