@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class BuildYourOwn extends Pizza {
 
-    //private static final double TOPPING_PRICE = 1.59;
+    private static final double TOPPING_PRICE = 1.59;
 
     /**
      * Calculates the price of the pizza based on the size, flavor, and toppings.
@@ -18,7 +18,7 @@ public class BuildYourOwn extends Pizza {
      */
     public double price() {
         double price = this.getSize().getBuildYourOwn();
-        price += 1.59 * getToppingsArrayList().size();
+        price += TOPPING_PRICE * getToppingsArrayList().size();
         return price;
     }
 

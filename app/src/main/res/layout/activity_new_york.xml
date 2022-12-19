@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChicagoActivity">
+    tools:context=".NewYorkActivity">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -28,7 +28,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/backButton"
+                android:id="@+id/backButton2"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
@@ -104,8 +104,8 @@
             android:layout_marginStart="97dp"
             android:layout_marginEnd="97dp"
             android:gravity="center"
-            android:textColor="#3A2A25"
             android:text="@string/crustTextView"
+            android:textColor="#3A2A25"
             android:textSize="16sp" />
 
         <Space
@@ -177,10 +177,10 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5.5dp"
                 android:layout_weight="1"
-                android:background="@drawable/text_border"
                 android:gravity="center"
-                android:text="@string/priceTextView"
                 android:textColor="#3A2A25"
+                android:background="@drawable/text_border"
+                android:text="@string/priceTextView"
                 android:textSize="18sp" />
 
             <Button

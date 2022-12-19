@@ -47,11 +47,13 @@
                     android:id="@+id/chicagoImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/image_border"
                     app:srcCompat="@drawable/chicago_style_pizza" />
 
                 <Button
                     android:id="@+id/chicagoButton"
-                    android:layout_width="162dp"
+                    android:layout_width="155dp"
                     android:layout_height="88dp"
                     android:layout_gravity="center"
                     android:backgroundTint="#BF5959"
@@ -60,24 +62,27 @@
             </FrameLayout>
 
             <FrameLayout
-                android:layout_width="match_parent"
+                android:layout_width="171dp"
                 android:layout_height="172dp"
                 android:layout_gravity="top|center_vertical"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginEnd="20dp"
+                android:scaleType="fitXY">
 
                 <ImageView
 
                     android:id="@+id/nyImage"
-                    android:layout_width="280dp"
-                    android:layout_height="172dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/image_border"
                     app:srcCompat="@drawable/ny_style_pizza" />
 
                 <Button
-                    android:id="@+id/nyButton"
-                    android:layout_width="162dp"
+                    android:id="@+id/newYorkButton"
+                    android:layout_width="155dp"
                     android:layout_height="88dp"
                     android:layout_gravity="center"
                     android:backgroundTint="#BF5959"

@@ -23,14 +23,14 @@ import java.util.ArrayList;
 import java.text.DecimalFormat;
 
 /**
- * ChicagoStyleActivity Class is the User Interface screen for Chicago Style Pizzas. Allows the user to choose the
+ * NewYorkStyleActivity Class is the User Interface screen for NewYork Style Pizzas. Allows the user to choose the
  * flavor of the pizza and the size. If the pizza is a build-your-own, it allows the user to add or remove toppings.
  * Displays the toppings on the pizza, the crust, and an image of the pizza. Keeps track of and displays the
  * price of the pizza.
  *
  * @author David Ma, Ethan Kwok
  */
-public class ChicagoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class NewYorkActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner flavorSpinner;
     private RecyclerView allToppingsRecycler, addedToppingsRecycler;
@@ -55,14 +55,14 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
     /**
      * Creation function used to set up the screen. The default pizza is a small deluxe pizza. Calls methods to
      * build the flavor spinner, toppings recycler views, and buttons.
-     * @param savedInstanceState Bundle containing the saved instance when ChicagoActivity is created
+     * @param savedInstanceState Bundle containing the saved instance when NewYorkActivity is created
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chicago);
+        setContentView(R.layout.activity_new_york);
 
-        pizzaFactory = new ChicagoPizza();
+        pizzaFactory = new NewYorkPizza();
         myPizza = pizzaFactory.createDeluxe();
         myPizza.setSize(Size.valueOf("SMALL"));
         canAddToppings = false;
@@ -88,7 +88,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
      * Defines the back button and addToOrder button, as well as their associated click events.
      */
     public void buildButtons() {
-        backButton = findViewById(R.id.backButton);
+        backButton = findViewById(R.id.backButton2);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +136,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
                 if (canAddToppings) addTopping(position);
                 else {
                     toast.cancel();
-                    toast = Toast.makeText(ChicagoActivity.this, "TOPPING COULD NOT BE ADDED", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(NewYorkActivity.this, "TOPPING COULD NOT BE ADDED", Toast.LENGTH_SHORT);
                     toast.show();
                 };
             }
@@ -163,7 +163,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
                 if (canRemoveToppings) removeTopping(position);
                 else {
                     toast.cancel();
-                    toast = Toast.makeText(ChicagoActivity.this, "TOPPING COULD NOT BE REMOVED", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(NewYorkActivity.this, "TOPPING COULD NOT BE REMOVED", Toast.LENGTH_SHORT);
                     toast.show();
                 };
             }
@@ -174,7 +174,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
      * Returns to the main screen
      */
     public void openMain() {
-        Intent intent = new Intent(ChicagoActivity.this, MainActivity.class);
+        Intent intent = new Intent(NewYorkActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -182,7 +182,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
      * Adds the Pizza to the current order, alerts the user, and then closes the window.
      */
     public void addToOrder() {
-        addToOrderAlert = new AlertDialog.Builder(ChicagoActivity.this);
+        addToOrderAlert = new AlertDialog.Builder(NewYorkActivity.this);
 
         addToOrderAlert.setTitle("ADD ORDER")
                 .setMessage("Do you want to add the pizza to the order?")
@@ -191,7 +191,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         toast.cancel();
-                        toast = Toast.makeText(ChicagoActivity.this, "Pizza added to order", Toast.LENGTH_SHORT);
+                        toast = Toast.makeText(NewYorkActivity.this, "Pizza added to order", Toast.LENGTH_SHORT);
                         toast.show();
                         MainActivity.addToOrder(myPizza);
                         openMain();
@@ -201,7 +201,7 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         toast.cancel();
-                        toast = Toast.makeText(ChicagoActivity.this, "Pizza was not added", Toast.LENGTH_SHORT);
+                        toast = Toast.makeText(NewYorkActivity.this, "Pizza was not added", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 })
@@ -224,21 +224,21 @@ public class ChicagoActivity extends AppCompatActivity implements AdapterView.On
 
         if (flavor.equals("DELUXE")) {
             myPizza = pizzaFactory.createDeluxe();
-            pizzaImage.setImageResource(R.drawable.deluxe_chicago_pizza);
+            pizzaImage.setImageResource(R.drawable.deluxe_ny_pizza);
         }
         if (flavor.equals("MEATZZA")) {
             myPizza = pizzaFactory.createMeatzza();
-            pizzaImage.setImageResource(R.drawable.chicago_meatzza);
+            pizzaImage.setImageResource(R.drawable.ny_meatzza);
         }
         if (flavor.equals("BBQ CHICKEN")) {
             myPizza = pizzaFactory.createBBQChicken();
-            pizzaImage.setImageResource(R.drawable.chicago_bbq);
+            pizzaImage.setImageResource(R.drawable.ny_bbq);
         }
         if (flavor.equals("BUILD YOUR OWN")) {
             myPizza = pizzaFactory.createBuildYourOwn();
             canAddToppings = true;
             canRemoveToppings = true;
-            pizzaImage.setImageResource(R.drawable.chicago_style_with_toppings);
+            pizzaImage.setImageResource(R.drawable.ny_pizza_with_toppings);
         }
 
         addedToppingsArrayList.clear();

@@ -10,8 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#63473E"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:background="@drawable/list_selector"
+        android:layout_margin="5dp"
+        android:padding="10dp"
         />
 
 </LinearLayout>

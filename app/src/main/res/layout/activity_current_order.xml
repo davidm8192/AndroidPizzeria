@@ -7,7 +7,7 @@
     tools:context=".CurrentOrderActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="729dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
 
             <Button
                 android:id="@+id/backButton3"
-                android:layout_width="128dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
@@ -43,6 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical"
+                android:textColor="#5A4139"
                 android:text="@string/orderTextView"
                 android:textSize="26sp" />
         </LinearLayout>
@@ -53,8 +54,9 @@
 
         <ListView
             android:id="@+id/orderListView"
+            android:background="@drawable/view_border"
             android:layout_width="match_parent"
-            android:layout_height="307dp"
+            android:layout_height="326dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp" />
 
@@ -64,11 +66,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="104dp"
+            android:layout_height="76dp"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="54dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -78,12 +80,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="@drawable/text_border_2"
                     android:gravity="center|center_vertical"
+                    android:textColor="#5A4139"
                     android:text="@string/subtotalTextView"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/taxTextView"
@@ -92,20 +101,25 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="@drawable/text_border_2"
                     android:gravity="center"
+                    android:textColor="#5A4139"
                     android:text="@string/taxTextView"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/totalTextView"
-                android:layout_width="72dp"
-                android:layout_height="102dp"
-                android:layout_marginStart="5dp"
+                android:layout_width="76dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
+                android:background="@drawable/text_border_2"
                 android:gravity="center"
                 android:text="@string/totalTextView"
+                android:textColor="#5A4139"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -131,23 +145,23 @@
                 android:textSize="28sp" />
 
             <LinearLayout
-                android:layout_width="141dp"
+                android:layout_width="wrap_content"
                 android:layout_height="129dp"
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/removeOrderButton"
-                    android:layout_width="match_parent"
+                    android:id="@+id/removePizzaButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="65dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="20dp"
                     android:backgroundTint="#F6C295"
-                    android:text="@string/removeOrderLabel"
+                    android:text="@string/removePizzaLabel"
                     android:textColor="#63473E" />
 
                 <Button
                     android:id="@+id/clearOrderButton"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="65dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="20dp"

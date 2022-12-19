@@ -1,7 +1,9 @@
 package com.example.androidpizzeria;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,14 +17,22 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * CurrentOrder Activity Class is the Current Order screen. Allows the user to view the pizzas and order number
+ * in the order; view the subtotal, tax, and total price; and remove pizzas from the order. It also allows a
+ * user to place the order once completed.
+ *
+ * @author David Ma, Ethan Kwok
+ */
 public class CurrentOrderActivity extends AppCompatActivity {
 
-    private Order myOrder;
     private TextView orderTextView, subtotalTextView, taxTextView, totalTextView;
     private ListView orderListView;
     private Button backButton, removeOrderButton, clearOrderButton, placeOrderButton;
     private Toast toast;
+    private AlertDialog.Builder clearOrderAlert;
 
+    private Order myOrder;
     private int itemPosition;
     private String pizzaInfo;
     private ArrayList<String> pizzaList;
@@ -33,6 +43,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
     private static final Crust[] ChicagoStyleCrusts = {Crust.valueOf("DEEP_DISH"), Crust.valueOf("PAN"),
             Crust.valueOf("STUFFED")};
 
+    /**
+     * Creation function used to set up the screen. Displays the current order of pizzas in the list view, as well
+     * as the order number. If there is no order, is creates a new order. Displays the order subtotal, tax, and total.
+     * @param savedInstanceState Bundle containing the saved instance when ChicagoActivity is created
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +60,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         pizzaList = new ArrayList<String>();
         createPizzaList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(CurrentOrderActivity.this,
-            android.R.layout.simple_list_item_single_choice, pizzaList);
-        orderListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            R.layout.list_view_layout, R.id.listItem, pizzaList);
         orderListView.setAdapter(adapter);
 
         orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,6 +68,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 pizzaInfo = adapter.getItem(position);
                 itemPosition = position;
+                view.setSelected(true);
             }
         });
 
@@ -62,22 +77,43 @@ public class CurrentOrderActivity extends AppCompatActivity {
         taxTextView = findViewById(R.id.taxTextView);
         totalTextView = findViewById(R.id.totalTextView);
 
-        removeOrderButton = findViewById(R.id.removeOrderButton);
+        buildButtons(adapter);
+
+        updateOrderNumber();
+        updateSubtotal();
+        updateTax();
+        updateTotal();
+    }
+
+    /**
+     * Defines the removeOrder button, clearOrder button, placeOrder button, and back button, as well as their
+     * click events.
+     * @param adapter ArrayAdapter of Strings set to the order listView.
+     */
+    private void buildButtons(ArrayAdapter<String> adapter) {
+        removeOrderButton = findViewById(R.id.removePizzaButton);
         removeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toast.cancel();
-                String toastString = pizzaInfo + " has been deleted";
-                toast = Toast.makeText(CurrentOrderActivity.this, toastString, Toast.LENGTH_SHORT);
-                toast.show();
-
-                pizzaList.remove(itemPosition);
-                adapter.notifyDataSetChanged();
+                removeOrder(adapter);
             }
         });
 
         clearOrderButton = findViewById(R.id.clearOrderButton);
+        clearOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearOrder(adapter);
+            }
+        });
+
         placeOrderButton = findViewById(R.id.placeOrderButton);
+        placeOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                placeOrder(adapter);
+            }
+        });
 
         backButton = findViewById(R.id.backButton3);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -86,13 +122,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 openMain();
             }
         });
-
-        updateOrderNumber();
-        updateSubtotal();
-        updateTax();
-        updateTotal();
     }
 
+    /**
+     * Sets the list of pizzas to be strings of each pizza in the order.
+     */
     public void createPizzaList() {
         if(myOrder != null) {
             for(Pizza p : myOrder.getOrder()) {
@@ -101,9 +135,111 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns to the main screen
+     */
     public void openMain() {
         Intent intent = new Intent(CurrentOrderActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Removes the selected pizza in the list view from the order. Adjusts the prices as necessary, and tells
+     * the user whether or not a pizza has been deleted.
+     * @param adapter ArrayAdapter of Strings set to the order listView.
+     */
+    private void removeOrder(ArrayAdapter<String> adapter) {
+        if (pizzaInfo == null) {
+            toast.cancel();
+            toast = Toast.makeText(CurrentOrderActivity.this, "Select a pizza to delete", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else {
+            toast.cancel();
+            String toastString = "Deleted " + pizzaInfo;
+            toast = Toast.makeText(CurrentOrderActivity.this, toastString, Toast.LENGTH_SHORT);
+            toast.show();
+
+            myOrder.remove(myOrder.getOrder().get(itemPosition));
+            pizzaList.remove(itemPosition);
+            adapter.notifyDataSetChanged();
+            pizzaInfo = null;
+        }
+    }
+
+    /**
+     * Removes all pizzas in the list view from the order. Adjusts the prices as necessary, and tells the user
+     * whether or not the order has been successfully cleared.
+     * @param adapter ArrayAdapter of Strings set to the order listView.
+     */
+    private void clearOrder(ArrayAdapter<String> adapter) {
+        clearOrderAlert = new AlertDialog.Builder(CurrentOrderActivity.this);
+
+        clearOrderAlert.setTitle("CLEAR ORDER?")
+                .setMessage("Do you want to remove all pizzas from the order?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        toast.cancel();
+                        toast = Toast.makeText(CurrentOrderActivity.this, "Order cleared", Toast.LENGTH_SHORT);
+                        toast.show();
+                        myOrder.getOrder().clear();
+                        pizzaList.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        toast.cancel();
+                        toast = Toast.makeText(CurrentOrderActivity.this, "Order was not cleared", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * Places an order when pressed. This finalizes the order, sending it to the list of store orders and alerting
+     * the user that the order has successfully been placed. It then closes the window. If the order is empty, it
+     * does not do any of this and instead alerts the user that an empty order cannot be placed.
+     * @param adapter ArrayAdapter of Strings set to the order listView.
+     */
+    public void placeOrder(ArrayAdapter<String> adapter) {
+        if (myOrder.getOrder().size() == 0) {
+            toast.cancel();
+            toast = Toast.makeText(CurrentOrderActivity.this, "Cannot place an empty order", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        clearOrderAlert = new AlertDialog.Builder(CurrentOrderActivity.this);
+        clearOrderAlert.setTitle("FINISH ORDER?")
+                .setMessage("Do you want to place the order?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        toast.cancel();
+                        toast = Toast.makeText(CurrentOrderActivity.this, "Order placed", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                        MainActivity.addToStoreOrder(myOrder);
+                        MainActivity.resetMyOrder();
+                        adapter.notifyDataSetChanged();
+                        openMain();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        toast.cancel();
+                        toast = Toast.makeText(CurrentOrderActivity.this, "Order was not placed", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                })
+                .show();
     }
 
     /**
@@ -145,17 +281,17 @@ public class CurrentOrderActivity extends AppCompatActivity {
     }
 
     public void updateSubtotal() {
-        String subtotalString = Double.toString(subtotalPrice(myOrder));
+        String subtotalString = df.format(subtotalPrice(myOrder));
         subtotalTextView.setText(("SUBTOTAL: $" + subtotalString));
     }
 
     public void updateTax() {
-        String taxString = Double.toString(taxPrice(myOrder));
+        String taxString = df.format(taxPrice(myOrder));
         taxTextView.setText(("TAX: $" + taxString));
     }
 
     public void updateTotal() {
-        String totalString = Double.toString(totalPrice(myOrder));
+        String totalString = df.format(totalPrice(myOrder));
         totalTextView.setText(("TOTAL: $" + totalString));
     }
 
@@ -195,6 +331,5 @@ public class CurrentOrderActivity extends AppCompatActivity {
     public static double totalPrice(Order myOrder) {
         return subtotalPrice(myOrder) + taxPrice(myOrder);
     }
-
 
 }

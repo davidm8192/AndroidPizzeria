@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <drawable name="light_tan">#F6C8A1</drawable>
-    <drawable name="tan">#5A4139</drawable>
+    <drawable name="tan">#D89968</drawable>
+    <drawable name="pale">#FDF5E6</drawable>
+    <drawable name="pizza_red">#BF5959</drawable>
 </resources>
